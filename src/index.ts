@@ -1,16 +1,13 @@
+// src/index.ts
 import express from "express";
-import * as dotenv from "dotenv";
-import { PrismaClient } from '@prisma/client'
-dotenv.config();
-
-const prisma = new PrismaClient();
+import currencyRoutes from "./routes/CurrencyRoute";
 
 const app = express();
 app.use(express.json());
 
-app.get("/", (req, res) => {
-    res.send("Hello from Node.js with TypeScript!");
-});
+// Usa as rotas
+app.use(currencyRoutes);
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(3000, () => {
+  console.log("Server is running on http://localhost:3000");
+});
