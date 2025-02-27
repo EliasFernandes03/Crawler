@@ -1,14 +1,13 @@
-FROM node:18
+FROM node:18-alpine
 
 WORKDIR /app
 
-COPY --chown=node:node package.json .
+COPY package.json package-lock.json ./
+
 RUN npm install
 
-COPY --chown=node:node . .
-
-RUN npm run build
+COPY . .
 
 EXPOSE 3000
 
-CMD ["node", "dist/index.js"]
+CMD ["npm", "run", "dev"]
