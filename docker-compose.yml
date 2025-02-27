@@ -1,10 +1,21 @@
-version: '3'
+version: '3.8'
+
 services:
-  crawler:
-    build: .
-    container_name: crawler
+  db:
+    image: mysql:8.0
+    container_name: my-mysql-container
+    restart: always
     ports:
-      - "3000:3000"
+      - "3306:3306"
+    env_file:
+      - .env
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     volumes:
-      - .:/crawler
-    command: npm run dev
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
