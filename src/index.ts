@@ -1,16 +1,11 @@
+import "reflect-metadata";
 import express from "express";
-import * as dotenv from "dotenv";
-import { PrismaClient } from '@prisma/client'
-dotenv.config();
-
-const prisma = new PrismaClient();
+import currencyRoutes from "./routes/CurrencyRoute";
+import "../src/providers/CurrencyProvider";
 
 const app = express();
 app.use(express.json());
-
-app.get("/", (req, res) => {
-    res.send("Hello from Node.js with TypeScript!");
-});
+app.use(currencyRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
