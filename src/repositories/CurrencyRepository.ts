@@ -1,24 +1,18 @@
-import { injectable } from "tsyringe";
+// src/repositories/CurrencyRepository.ts
 import { PrismaClient } from "@prisma/client";
-import { ICurrencyRepository } from "../interfaces/RepositoryInterfaces/ICurrencyRepository";
 import { ICurrencyInterface } from "../interfaces/Objects/ICurrencyInterface";
 
-@injectable()
-export class CurrencyRepository implements ICurrencyRepository {
-    private prisma: PrismaClient;
+const prisma = new PrismaClient();
 
-    constructor() {
-        this.prisma = new PrismaClient();
-    }
-
-    async store(data: ICurrencyInterface): Promise<ICurrencyInterface> {
-        return this.prisma.currency.create({
-            data: {
-                code: data.code,
-                name: data.name,
-                symbol: data.symbol,
-                rate: data.rate,
-            },
-        });
-    }
+export class CurrencyRepository {
+  async store(data: ICurrencyInterface) {
+    return prisma.currency.create({
+      data: {
+        code: data.code,
+        name: data.name,
+        symbol: data.symbol,
+        rate: data.rate,
+      },
+    });
+  }
 }

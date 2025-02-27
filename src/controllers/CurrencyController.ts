@@ -1,19 +1,21 @@
+// src/controllers/CurrencyController.ts
 import { Request, Response } from "express";
-import { injectable, inject } from "tsyringe";
 import { CurrencyService } from "../services/CurrencyService";
 
-@injectable()
 export class CurrencyController {
-    constructor(
-        @inject(CurrencyService) private currencyService: CurrencyService
-    ) { }
+  private currencyService: CurrencyService;
 
-    store = async (req: Request, res: Response): Promise<void> => {
-        try {
-            const currency = await this.currencyService.store(req.body);
-            res.status(201).json(currency);
-        } catch (error) {
-            res.send("Something went wrong").status(500)
-        }
-    };
+  constructor(currencyService: CurrencyService) {
+    this.currencyService = currencyService;
+  }
+
+  // Usando arrow function para manter `this` correto sem bind
+  store = async (req: Request, res: Response): Promise<void> => {
+    try {
+      const currency = await this.currencyService.store(req.body);
+      res.status(201).json(currency);
+    } catch (error) {
+      res.status(500).send("Something went wrong");
+    }
+  };
 }

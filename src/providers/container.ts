@@ -1,9 +1,8 @@
-import "reflect-metadata";
 import { container } from "tsyringe";
-import { CurrencyRepository } from "../repositories/CurrencyRepository";
 import { ICurrencyRepository } from "../interfaces/RepositoryInterfaces/ICurrencyRepository";
+import { CurrencyRepository } from "../repositories/CurrencyRepository";
 
 container.registerSingleton<ICurrencyRepository>(
-    "CurrencyRepository",
-    CurrencyRepository
+  "CurrencyRepository",
+  CurrencyRepository
 );

@@ -1,12 +1,14 @@
+// src/routes/CurrencyRoute.ts
 import { Router } from "express";
-import { container } from "tsyringe";
 import { CurrencyController } from "../controllers/CurrencyController";
+import { CurrencyService } from "../services/CurrencyService";
+import { CurrencyRepository } from "../repositories/CurrencyRepository";
 
 const router = Router();
-const currencyController = container.resolve(CurrencyController);
 
-const asyncHandler = (fn: Function) => (req: any, res: any, next: any) =>
-    Promise.resolve(fn(req, res, next)).catch(next);
+const currencyRepository = new CurrencyRepository();
+const currencyService = new CurrencyService(currencyRepository);
+const currencyController = new CurrencyController(currencyService);
 
 router.post("/currencies", currencyController.store);
 

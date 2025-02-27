@@ -1,11 +1,13 @@
-import "reflect-metadata";
+// src/index.ts
 import express from "express";
 import currencyRoutes from "./routes/CurrencyRoute";
-import "../src/providers/CurrencyProvider";
 
 const app = express();
 app.use(express.json());
+
+// Usa as rotas
 app.use(currencyRoutes);
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(3000, () => {
+  console.log("Server is running on http://localhost:3000");
+});

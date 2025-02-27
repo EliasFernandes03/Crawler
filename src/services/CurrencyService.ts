@@ -1,14 +1,15 @@
-import { injectable, inject } from "tsyringe";
-import { ICurrencyRepository } from "../interfaces/RepositoryInterfaces/ICurrencyRepository";
+// src/services/CurrencyService.ts
+import { CurrencyRepository } from "../repositories/CurrencyRepository";
 import { ICurrencyInterface } from "../interfaces/Objects/ICurrencyInterface";
 
-@injectable()
 export class CurrencyService {
-    constructor(
-        @inject("CurrencyRepository") private currencyRepository: ICurrencyRepository
-    ) {}
+  private currencyRepository: CurrencyRepository;
 
-    async store(data: ICurrencyInterface): Promise<ICurrencyInterface> {
-        return this.currencyRepository.store(data);
-    }
+  constructor(currencyRepository: CurrencyRepository) {
+    this.currencyRepository = currencyRepository;
+  }
+
+  async store(data: ICurrencyInterface) {
+    return this.currencyRepository.store(data);
+  }
 }
